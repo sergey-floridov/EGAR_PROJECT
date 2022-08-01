@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<h3 class="text-center lh-base p-4 mt-5">Реестр депозитов</h3>
+
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>УИ депозита</th>
+            <th>Номер счета</th>
+            <th>Валюта счета</th>
+            <th></th>
+        </tr>
+        <tr th:each="debet : ${debets}">
+            <td th:text="${debet.getId()}"></td>
+            <td th:text="${debet.getCurrentAccount()}"></td>
+            <td th:text="${debet.getCurrency()}"></td>
+            <td><a th:href="@{/debets/{id}(id=${debet.id})}">Подробнее..</a> </td>
+        </tr>
+    </table>
+
+    <hr>
+    <form action="#" th:action="@{'/debets/new'}" method="get">
+        <input type="submit" value="Создать депозит"/>
+    </form>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

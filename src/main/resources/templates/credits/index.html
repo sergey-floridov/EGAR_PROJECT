@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<h3 class="text-center lh-base p-4 mt-5">Список кредитов</h3>
+
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>УИ кредита</th>
+            <th>Номер счета</th>
+            <th>Валюта счета</th>
+            <th></th>
+        </tr>
+        <tr th:each="credit : ${credits}">
+            <td th:text="${credit.getId()}"></td>
+            <td th:text="${credit.getCurrentAccount()}"></td>
+            <td th:text="${credit.getCurrency()}"></td>
+            <td><a th:href="@{/credits/{id}(id=${credit.id})}">Подробнее..</a> </td>
+        </tr>
+    </table>
+
+    <hr>
+    <form action="#" th:action="@{'/credits/new'}" method="get">
+        <input type="submit" value="Создать кредит"/>
+    </form>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

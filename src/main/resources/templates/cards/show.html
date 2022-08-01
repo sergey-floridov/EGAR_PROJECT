@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+
+
+<h3 class="text-center lh-base p-4 mt-5">Подробная информация о карте</h3>
+
+<div class="container">
+    <p><b>УИН карты: </b><span th:text="${card.getId()}"></span></p>
+    <p><b>Номер карты: </b><span th:text="${card.getCcNumber()}"></span></p>
+    <p><b>Платежная система: </b><span th:text="${card.getPaymentSystem()}"></span></p>
+    <p><b>Депозитный счет карты: </b><span th:text="${card.getDebetAccount().getCurrentAccount}"></span></p>
+
+
+
+
+    <hr>
+    <form action="#" th:action="@{'/cards/delete/' + ${debet.id}}" th:method="post">
+        <input type="submit" value="Удалить карту"/>
+    </form>
+
+    <hr>
+    <form action="#" th:action="@{'/cards/' + ${card.id} + '/edit'}" th:method="get">
+        <input type="submit" value="Редактировать данные карты"/>
+    </form>
+
+</div>
+
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

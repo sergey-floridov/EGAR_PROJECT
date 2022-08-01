@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<h3 class="text-center lh-base p-4 mt-5">Редактирование депозита</h3>
+<form th:action="@{'/debets/' + ${debet.id}}" th:method="post" th:object="${debet}">
+    <div class="form-group">
+        <label for="currentAccount">Номер счета</label>
+        <input type="number" class="form-control" name="currentAccount" id="currentAccount" th:field="*{currentAccount}" aria-describedby="currentHelp" placeholder="Введите номер счета">
+        <small id="currentHelp" class="form-text text-muted">Введите номер счета депозита.</small>
+    </div>
+    <br/>
+    <span>Валюта кредита</span>
+    <select name = "currency">
+        <option th:each="currency : ${T(ru.pnz.floridov.RestDemo.util.Currency).values()}" th:value="${currency}" th:field="*{currency}" th:text="${currency}">
+        </option>
+    </select>
+    <br/>
+    <br/>
+    <div class="form-group">
+        <label for="amount">Сумма</label>
+        <input type="number" class="form-control" name="amount" id="amount" th:field="*{amount}" aria-describedby="amountHelp" placeholder="Сумма депозита">
+        <small id="amountHelp" class="form-text text-muted">Введите сумму для помещения на депозит.</small>
+    </div>
+    <br/>
+    <br/>
+    <div class="form-group">
+        <label for="rate">Процентная ставка</label>
+        <input type="number" name="rate" class="form-control" id="rate" th:field="*{rate}" aria-describedby="rateHelp" placeholder="Процентная ставка">
+        <small id="rateHelp" class="form-text text-muted">Годовая процентная ставка.</small>
+    </div>
+    <br/>
+    <div class="form-group">
+        <span>Кто открывает данный депозит?</span>
+        <label for="client">Выберите клиента</label>
+        <select name="client" id="client">
+            <option th:each="client : ${clients}" th:value="${client.getId()}" th:field="*{client}"th:text="${client.getLastName()}">
+            </option>
+        </select>
+    </div>
+
+
+    <hr>
+    <input type="submit" value="Редактировать депозит"/>
+</form>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

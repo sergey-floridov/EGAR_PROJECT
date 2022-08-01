@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<!-- --------------------------------------------------------------- -->
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<h3 class="text-center lh-base p-4 mt-5">Подробная информация о клиенте</h3>
+
+<div class="container">
+    <p><b>Фамилия: </b><span th:text="${client.getLastName()}"></span></p>
+    <p><b>Имя: </b><span th:text="${client.getFirstName()}"></span></p>
+    <p><b>Адрес: </b><span th:text="${client.getAddress()}"></span></p>
+    <p><b>Телефон: </b><span th:text="${client.getPhone()}"></span></p>
+    <p><b>Email: </b><span th:text="${client.getEmail()}"></span></p>
+    <p><b>Менеджер клиента: </b><span th:text="${client.getManager()}"></span></p>
+<!--    <p><b>Комментарий: </b><span th:text="${client.debetAccount.currentAccount}"></span></p>-->
+
+    <hr>
+
+    <div th:if="${credits.isEmpty()}">
+        <p>Человек пока не взял ни одного кредита</p>
+        <hr/>
+    </div>
+
+    <div th:if="${!credits.isEmpty()}">
+        <hr/>
+        <b>Кредитные продукты:</b>
+        <br/>
+        <table th:each="credit : ${credits}">
+            <tr>
+                <td>
+                <span th:text="${'Вид кредита: ' + credit.getCreditType() + ', ' + 'Номер счета: '  + credit.getCurrentAccount() + ', ' + 'Сумма кредита: '  + credit.getAmount()}">
+                </span>
+                </td>
+            </tr>
+        </table>
+        <hr/>
+    </div>
+
+
+    <form th:method="GET" th:action="@{/clients/{id}/edit(id=${client.getId()})}">
+        <input type="submit" value="Редактировать"/>
+    </form>
+
+    <hr>
+    <form action="#" th:action="@{'/clients/delete/' + ${client.id}}" th:method="post">
+        <input type="submit" value="Удалить клиента"/>
+    </form>
+
+
+
+</div>
+
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+<!-- --------------------------------------------------------------- -->
+
+</html>

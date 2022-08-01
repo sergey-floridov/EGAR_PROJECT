@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<h3 class="text-center lh-base p-4 mt-5">Поиск клиентов</h3>
+
+<div th:if="${clients}">
+    <div th:if="${clients.isEmpty()}">
+        <span>Клиент не найден</span>
+    </div>
+
+    <div th:each="client : ${clients}">
+        <p th:text="${client.getLastName() + ', ' + client.getFirstName()}">client</p>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

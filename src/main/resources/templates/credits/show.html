@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+
+
+<h3 class="text-center lh-base p-4 mt-5">Подробная информация о кредите</h3>
+
+<div class="container">
+    <p><b>УИН кредита: </b><span th:text="${credit.getId()}"></span></p>
+    <p><b>Номер кредитного счета: </b><span th:text="${credit.getCurrentAccount()}"></span></p>
+    <p><b>Тип кредита: </b><span th:text="${credit.getCreditType()}"></span></p>
+    <p><b>Срок кредита: </b><span th:text="${credit.getLoanPeriodInMonth()}"></span></p>
+    <p><b>Процентная ставка по кредиту: </b><span th:text="${credit.getRate()}"></span></p>
+    <p><b>Сумма кредита: </b><span th:text="${credit.getAmount()}"></span></p>
+    <p><b>Валюта кредита: </b><span th:text="${credit.getCurrency}"></span></p>
+    <p><b>Страховка кредита: </b><span th:text="${credit.getInsurance()}"></span></p>
+    <p><b>На кого оформлен кредит: </b><span th:text="${credit.getClient().lastName}"></span></p>
+
+
+    <p><b>Ваш ежемесячный платеж составит: </b><span th:text="${pay.longValue()} + ' ' + ${credit.getCurrency()}"></span></p>
+    <p><b>Переплата за весь срок кредита составит: </b><span th:text="${overPayment.longValue()} + ' ' + ${credit.getCurrency()}"></span></p>
+
+    <hr>
+    <form action="#" th:action="@{'/credits/delete/' + ${credit.id}}" method="post">
+        <input type="submit" value="Удалить документ"/>
+    </form>
+
+    <hr>
+    <form action="#" th:action="@{'/credits/' + ${credit.id} + '/edit'}" method="get">
+        <input type="submit" value="Редактировать документ"/>
+    </form>
+
+</div>
+
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

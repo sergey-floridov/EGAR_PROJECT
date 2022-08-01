@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<h3 class="text-center lh-base p-4 mt-5">Реестр карт</h3>
+
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>УИ карты</th>
+            <th>Номер карты</th>
+            <th>Платежная система</th>
+            <th></th>
+        </tr>
+        <tr th:each="card : ${cards}">
+            <td th:text="${card.getId()}"></td>
+            <td th:text="${card.getCcNumber()}"></td>
+            <td th:text="${card.getPaymentSystem()}"></td>
+            <td><a th:href="@{/cards/{id}(id=${card.id})}">Подробнее..</a> </td>
+        </tr>
+    </table>
+
+    <hr>
+    <form action="#" th:action="@{'/cards/new'}" method="get">
+        <input type="submit" value="Создать карту"/>
+    </form>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

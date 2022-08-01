@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<h3 class="text-center lh-base p-4 mt-5">Редактирование данных карты</h3>
+<form th:action="@{'/cards/' + ${card.id}}" th:method="patch" th:object="${card}">
+    <div class="form-group">
+        <label for="ccNumber">Номер карты</label>
+        <input type="number" class="form-control" name="ccNumber" id="ccNumber" th:field="*{ccNumber}" aria-describedby="ccNumberHelp" placeholder="Введите номер карты">
+        <small id="ccNumberHelp" class="form-text text-muted">Введите номер карты.</small>
+    </div>
+    <br/>
+    <br/>
+    <div class="form-group">
+        <label for="paymentSystem">Платежная система</label>
+        <input type="text" class="form-control" name="paymentSystem" id="paymentSystem" th:field="*{paymentSystem}" aria-describedby="paymentSystemHelp" placeholder="Платежная система">
+        <small id="paymentSystemHelp" class="form-text text-muted">Введите платежную систему.</small>
+    </div>
+    <br/>
+
+    <div class="form-group">
+        <span>К какому депозиту привязана карта?</span>
+        <label for="debetAccount">Выберите депозит</label>
+        <select name="debetAccount" id="debetAccount">
+            <option th:each="debetAccount : ${debets}" th:value="${debetAccount.getId()}" th:text="${debetAccount.getCurrentAccount()}">
+            </option>
+        </select>
+    </div>
+
+    <hr>
+    <input type="submit" value="Редактировать данные карту"/>
+</form>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

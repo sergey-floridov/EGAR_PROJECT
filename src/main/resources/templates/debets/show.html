@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+
+
+<h3 class="text-center lh-base p-4 mt-5">Подробная информация о депозите</h3>
+
+<div class="container">
+    <p><b>УИН депозита: </b><span th:text="${debet.getId()}"></span></p>
+    <p><b>Номер депозитного счета: </b><span th:text="${debet.getCurrentAccount()}"></span></p>
+    <p><b>Сумма депозита: </b><span th:text="${debet.getAmount()}"></span></p>
+    <p><b>Валюта депозита </b><span th:text="${debet.getCurrency()}"></span></p>
+    <p><b>Процентная ставка по депозиту: </b><span th:text="${debet.getRate()}"></span></p>
+    <p><b>Владелец депозита: </b><span th:text="${debet.getClient()}"></span></p>
+
+    <hr>
+    <form action="#" th:action="@{'/debets/delete/' + ${debet.id}}" method="post">
+        <input type="submit" value="Удалить документ"/>
+    </form>
+
+    <hr>
+    <form action="#" th:action="@{'/debets/' + ${debet.id} + '/edit'}" method="get">
+        <input type="submit" value="Редактировать документ"/>
+    </form>
+
+</div>
+
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

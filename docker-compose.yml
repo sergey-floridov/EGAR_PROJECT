@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:11.4-alpine
+    container_name: bank-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=8207
+      - POSTGRES_DB=Bank
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

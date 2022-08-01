@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<h3 class="text-center lh-base p-4 mt-5">Редактирование данных клиента</h3>
+<form th:action="@{'/clients/' + ${client.id}}" th:method="patch" th:object="${client}">
+    <div class="form-group">
+        <label for="lastName">Фамилия</label>
+        <input type="text" class="form-control" name="lastName" id="lastName" th:field="*{lastName}" aria-describedby="lastNameHelp" placeholder="Введите Фамилию">
+        <small id="lastNameHelp" class="form-text text-muted">Введите фамилию клиента.</small>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="firstName">Имя</label>
+        <input type="text" class="form-control" name="firstName" id="firstName" th:field="*{firstName}" aria-describedby="firstNameHelp" placeholder="Введите Имя">
+        <small id="firstNameHelp" class="form-text text-muted">Введите имя клиента.</small>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="phone">Телефон</label>
+        <input type="number" class="form-control" name="phone" id="phone" th:field="*{phone}"aria-describedby="phoneHelp" placeholder="Введите телефон">
+        <small id="phoneHelp" class="form-text text-muted">Введите телефон клиента.</small>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="address">Адрес</label>
+        <input type="text" class="form-control" name="address" id="address" th:field="*{address}"aria-describedby="addressHelp" placeholder="Введите адрес">
+        <small id="addressHelp" class="form-text text-muted">Введите адрес клиента.</small>
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="email">Электронная почта</label>
+        <input type="text" class="form-control" name="email" id="email" th:field="*{email}"aria-describedby="emailHelp" placeholder="Введите электронную почту">
+        <small id="emailHelp" class="form-text text-muted">Введите электронную почту клиента.</small>
+    </div>
+    <br/>
+    <!--    <div class="form-group">-->
+    <!--        <label for="manager.id">ID менеджера</label>-->
+    <!--        <input type="number" class="form-control" name="manager.id" id="manager.id" aria-describedby="manager.idHelp" placeholder="Введите ID">-->
+    <!--        <small id="manager.idHelp" class="form-text text-muted">Введите ID менеджера клиента.</small>-->
+    <!--    </div>-->
+    <!--    <br/>-->
+
+
+    <hr>
+    <input type="submit" value="Редактировать клиента"/>
+</form>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+
+</html>
