@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 @Repository
 public interface DebetAccountRepository extends JpaRepository<DebetAccount,Long> {
 
-    @Query(value = "select sum (amount) from debet_account where client_id=:id and currency=:currency", nativeQuery = true)
+    @Query("SELECT sum(amount) from DebetAccount where client.id=:id and currency=:currency")
     BigDecimal findAllDebetBalanceDetailsById(Long id, String currency);
+
+
+
 }

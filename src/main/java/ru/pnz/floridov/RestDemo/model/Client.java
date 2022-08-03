@@ -1,15 +1,17 @@
 package ru.pnz.floridov.RestDemo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -23,16 +25,18 @@ public class Client {
     private Long id;
 
 
+    @NotBlank
     @Size(min = 2, max = 100, message = "Имя должно быть от 2 до 100 символов длиной")
     @Column(name = "first_name")
     private String firstName;
 
-
+    @NotBlank
     @Size(min = 2, max = 100, message = "Фамилия должна быть от 2 до 100 символов длиной")
     @Column(name = "last_name")
     private String lastName;
 
 
+    @NotBlank
     @Column(name = "address")
     private String address;
 
@@ -60,6 +64,6 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch=FetchType.LAZY)
     @ToString.Exclude
     @JsonIgnore
-    private List<CreditProduct> credits;
+    private List<CreditProduct> credits = new ArrayList<>();
 
 }

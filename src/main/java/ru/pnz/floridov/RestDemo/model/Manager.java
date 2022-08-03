@@ -40,8 +40,7 @@ public class Manager {
     @Column(name = "phone")
     private int phone;
 
-
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager", fetch=FetchType.LAZY)
     private List<Client> clients;
 
 

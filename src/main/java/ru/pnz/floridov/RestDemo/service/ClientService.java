@@ -12,10 +12,14 @@ import ru.pnz.floridov.RestDemo.repository.ClientRepository;
 import ru.pnz.floridov.RestDemo.repository.CreditProductRepository;
 import ru.pnz.floridov.RestDemo.repository.DebetAccountRepository;
 import ru.pnz.floridov.RestDemo.util.Currency;
+
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 
 @Service
@@ -52,20 +56,21 @@ public class ClientService {
         var usdCreditDetails = creditProductRepository.findAllCreditBalanceDetailsById(id, Currency.USD.name());
         var euroCreditDetails = creditProductRepository.findAllCreditBalanceDetailsById(id, Currency.EUR.name());
 
-        var debetSum = getSafeDetails(rubDebetDetails)
+        var debetSum = defaultIfNull(rubDebetDetails, BigDecimal.ZERO)
                 .add(convert(usdDebetDetails, Currency.USD)
                         .add(convert(euroDebetDetails, Currency.EUR)));
-        var creditSum = getSafeDetails(rubCreditDetails)
+        var creditSum = defaultIfNull(rubCreditDetails, BigDecimal.ZERO)
                 .add(convert(usdCreditDetails, Currency.USD)
                         .add(convert(euroCreditDetails, Currency.EUR)));
 
         return ClientBalanceDetail.builder()
-                .rubDebetSum(getSafeDetails(rubDebetDetails))
-                .usdDebetSum(getSafeDetails(usdDebetDetails))
-                .euroDebetSum(getSafeDetails(euroDebetDetails))
-                .rubCreditSum(getSafeDetails(rubCreditDetails))
-                .usdCreditSum(getSafeDetails(usdCreditDetails))
-                .euroCreditSum(getSafeDetails(euroCreditDetails))
+                .rubDebetSum(defaultIfNull(rubDebetDetails, BigDecimal.ZERO))
+                .rubDebetSum(defaultIfNull(rubDebetDetails, BigDecimal.ZERO))
+                .usdDebetSum(defaultIfNull(usdDebetDetails, BigDecimal.ZERO))
+                .euroDebetSum(defaultIfNull(euroDebetDetails, BigDecimal.ZERO))
+                .rubCreditSum(defaultIfNull(rubCreditDetails, BigDecimal.ZERO))
+                .usdCreditSum(defaultIfNull(usdCreditDetails, BigDecimal.ZERO))
+                .euroCreditSum(defaultIfNull(euroCreditDetails, BigDecimal.ZERO))
                 .totalDebet(debetSum)
                 .totalCredit(creditSum)
                 .total(debetSum.subtract(creditSum))
@@ -73,13 +78,7 @@ public class ClientService {
     }
 
 
-    private BigDecimal getSafeDetails(BigDecimal source) {
-        return source == null
-                ? BigDecimal.ZERO
-                : source;
-    }
-
-//    конвертация валюты в рубли (курс забит хардово,(как заглушка- константой). В дальнейшем можно доделать отдельный сервис получения данных по курсу
+    //    конвертация валюты в рубли (курс забит хардово,(как заглушка- константой)). В дальнейшем можно доделать отдельный сервис получения данных по курсу
     private BigDecimal convert(BigDecimal money, Currency currency) {
         if (money == null || currency == null) {
             return BigDecimal.ZERO;
@@ -116,13 +115,8 @@ public class ClientService {
 
 
     public List<CreditProduct> getCreditProductsByClientId(Long id) {
-        Optional<Client> client = clientRepository.findById(id);
-
-            if (client.isPresent()) {
-                Hibernate.initialize(client.get().getCredits());
-            return client.get().getCredits();
-        } else {
-            return Collections.emptyList();
-        }
+        return clientRepository.findById(id).orElseGet(Client::new)
+                .getCredits();
     }
+
 }
