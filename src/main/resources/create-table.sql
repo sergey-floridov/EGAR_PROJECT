@@ -90,47 +90,42 @@ alter table card
 
 
 
-insert into client (id, address, email, first_name, last_name, phone)
-values (1, 'Москва', 'example1@mail.ru', 'Иван', 'Иванов', '89093332211');
+insert into client (address, email, first_name, last_name, phone)
+values ('Москва', 'example1@mail.ru', 'Иван', 'Иванов', '89093332211');
 
-insert into client (id, address, email, first_name, last_name, phone)
-values (2, 'Пенза', 'example2@mail.ru', 'Петр', 'Петров', '89093332244');
+insert into client (address, email, first_name, last_name, phone)
+values ('Пенза', 'example2@mail.ru', 'Петр', 'Петров', '89093332244');
 
-insert into client (id, address, email, first_name, last_name, phone)
-values (3, 'Петербург', 'example3@mail.ru', 'Сидор', 'Сидоров', '89093332255');
+insert into client (address, email, first_name, last_name, phone)
+values ('Петербург', 'example3@mail.ru', 'Сидор', 'Сидоров', '89093332255');
 
-insert into credit_product (id, amount, type, currency, current_account, insurance,
+insert into credit_product (amount, type, currency, current_account, insurance,
                             loan_period_in_month, rate, client_id)
-values (3, 1000000, 1,'USD', 1000001, 'ВСК', 60, 10, 1);
+values (1000000, 1,'USD', 1000001, 'ВСК', 60, 10, 1);
 
-insert into credit_product (id, amount, type, currency, current_account, insurance,
+insert into credit_product (amount, type, currency, current_account, insurance,
                             loan_period_in_month, rate, client_id)
-values (1, 2000000, 2, 'EUR', 1000002, 'Ингосстрах', 120, 8, 2);
+values (2000000, 2, 'EUR', 1000002, 'Ингосстрах', 120, 8, 2);
 
-insert into credit_product (id, amount, type, currency, current_account, insurance,
+insert into credit_product (amount, type, currency, current_account, insurance,
                             loan_period_in_month, rate, client_id)
-values (2, 500000, 1, 'RUB', 1000003, 'Ресо', 240, 9, 3);
+values (500000, 1, 'RUB', 1000003, 'Ресо', 240, 9, 3);
 
-insert into debet_account (id, amount, currency, current_account, rate, client_id)
-values (1, 100000, 'RUB', 2000001, 5, 1);
+insert into debet_account (amount, currency, current_account, rate, client_id)
+values (100000, 'RUB', 2000001, 5, 1);
 
-insert into debet_account (id, amount, currency, current_account, rate, client_id)
-values (2, 200000, 'USD', 2000002, 6, 2);
+insert into debet_account (amount, currency, current_account, rate, client_id)
+values (200000, 'USD', 2000002, 6, 2);
 
-insert into debet_account (id, amount, currency, current_account, rate, client_id)
-values (3, 100000, 'EUR', 2000003, 5, 3);
+insert into debet_account (amount, currency, current_account, rate, client_id)
+values (100000, 'EUR', 2000003, 5, 3);
 
-insert into card (id, cc_number, payment_system, debet_account_id)
-values (1, 58042356, 'VISA', 1);
+insert into card (cc_number, payment_system, debet_account_id)
+values (58042356, 'VISA', 1);
 
-insert into card (id, cc_number, payment_system, debet_account_id)
-values (2, 58042357, 'MasterCard', 2);
+insert into card (cc_number, payment_system, debet_account_id)
+values (58042357, 'MasterCard', 2);
 
-insert into card (id, cc_number, payment_system, debet_account_id)
-values (3, 58042357, 'VISA', 3);
+insert into card (cc_number, payment_system, debet_account_id)
+values (58042357, 'VISA', 3);
 
-Alter Sequence card_id_seq restart with 4;
-Alter Sequence client_id_seq restart with 4;
-Alter Sequence credit_product_id_seq restart with 4;
-Alter Sequence debet_account_id_seq restart with 4;
-Alter Sequence manager_id_seq restart with 4;

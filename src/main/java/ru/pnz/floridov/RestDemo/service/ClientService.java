@@ -49,9 +49,9 @@ public class ClientService {
     // - баланс отрицательный (суммы кредитов больше дебета, клиент должен банку)
     @Transactional
     public ClientBalanceDetail getClientBalance(Long id) {
-        var rubDebetDetails = debetAccountRepository.findAllDebetBalanceDetailsById(id, Currency.RUB.name());
-        var usdDebetDetails = debetAccountRepository.findAllDebetBalanceDetailsById(id, Currency.USD.name());
-        var euroDebetDetails = debetAccountRepository.findAllDebetBalanceDetailsById(id, Currency.EUR.name());
+        var rubDebetDetails = debetAccountRepository.findAllDebetBalanceDetailsById(id, Currency.RUB);
+        var usdDebetDetails = debetAccountRepository.findAllDebetBalanceDetailsById(id, Currency.USD);
+        var euroDebetDetails = debetAccountRepository.findAllDebetBalanceDetailsById(id, Currency.EUR);
         var rubCreditDetails = creditProductRepository.findAllCreditBalanceDetailsById(id, Currency.RUB.name());
         var usdCreditDetails = creditProductRepository.findAllCreditBalanceDetailsById(id, Currency.USD.name());
         var euroCreditDetails = creditProductRepository.findAllCreditBalanceDetailsById(id, Currency.EUR.name());
