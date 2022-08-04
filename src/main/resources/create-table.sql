@@ -128,3 +128,9 @@ values (2, 58042357, 'MasterCard', 2);
 
 insert into card (id, cc_number, payment_system, debet_account_id)
 values (3, 58042357, 'VISA', 3);
+
+Alter Sequence card_id_seq restart with 4;
+Alter Sequence client_id_seq restart with 4;
+Alter Sequence credit_product_id_seq restart with 4;
+Alter Sequence debet_account_id_seq restart with 4;
+Alter Sequence manager_id_seq restart with 4;
